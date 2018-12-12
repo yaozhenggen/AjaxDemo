@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="jquery-2.1.4.js"></script>
+<script type="text/javascript">
+      $(function(){
+    	  $("a").click(function(){
+    		  var url = this.href;//ajax请求的目标url
+    		  var agrs = {"time":new Date()}; //传递的参数，JSON格式
+    		  //function():回调函数：当响应结束时，回调函数被触发，响应结果在data中
+    		  $.get(url,agrs,function(data){//响应成功后的数据，可能是HTML,XML,JSON格式
+    			 var name = $(data).find("name").text(); 
+    			 var email = $(data).find("email").text();
+    			 var website = $(data).find("website").text();
+    			 /* JSON格式 ：把get改成getJSON
+    			     把var name = $(data).find("name").text();
+    			   改成var name = data.person.name;
+    			 
+    			 */
+    			 $("#details").empty()
+    			                   .append("<h2><a href='mailto:" + email + "'>" + name + "</a></h2>")
+    			                   .append("<a href='" + website + "'>" + website + "</a>");
+    		  });
+    		  return false;
+    	  });
+      }/* json类型可以在这定义json */)
+</script>
+</head>
+<body>
+  <h1>People</h1>
+  <ul>
+     <li><a href="andy.xml">Andy</a></li>
+     <li><a href="richard.html">Richard</a></li>
+     <li><a href="jeremy.html">Jeremy</a></li>
+  </ul>
+  <div id="details"></div>
+</body>
+</html>
